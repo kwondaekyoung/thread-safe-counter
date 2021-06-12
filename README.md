@@ -72,7 +72,7 @@ in my analysis i think the point is name of mutex, mutual exclusion.
 mutex has a key to unlock and each thread which in critical section give a key next thread after unlock the mutex. one by one access critical section.
 but in semaphore thread get the key 'value' in this code -1 1, and in semaphore using the resource through the value accessing the critical section, the other semaphore waits while changing value.
 so that it take more time than mutex because of time that waiting while changing value.
-we can see a difference between mutex and semaphore code sys time with two picture. it said system(cpu) take more time to wait previous thread's access critical section. 
+we can see a difference between mutex and semaphore code sys time with two picture. it said system(cpu) take more time to wait previous thread's access critical sectio
 ------------
 
 
