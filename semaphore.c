@@ -139,5 +139,6 @@ int main(int argc, char *argv[])
     //semctl(semid, 0, IPC_RMID, NULL);
     clock_t end=clock();
     printf("time: %lf\n",(double)(end-start)/CLOCKS_PER_SEC);
+    
     return 0;
 }

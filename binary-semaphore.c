@@ -66,5 +66,6 @@ int main(int argc, char *argv[])
 
     clock_t end=clock();
     printf("time: %lf\n",(double)(end-start)/CLOCKS_PER_SEC);
+    
     return 0;
 }

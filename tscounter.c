@@ -67,5 +67,6 @@ int main(int argc, char *argv[])
     printf("main: done [counter: %d] [should be: %d]\n", get(&counter), loop_cnt * 2);
     clock_t end=clock();
     printf("time: %lf\n",(double)(end-start)/CLOCKS_PER_SEC);
+    
     return 0;
 }

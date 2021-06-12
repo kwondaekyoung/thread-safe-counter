@@ -35,7 +35,9 @@ third mutext has a concept that 'owner' it means only the owner can lock or unlo
 ------------
 
 ## compare processing time
-+ use time command(real time) or print time that in code(main function)
++ use time command(real: from start to end call    user: in user-mode   sys: in kernel-mode)
+
++ print time that in code(main function)
 ```
 time ./a.out 1000000
 ```
@@ -53,26 +55,31 @@ time ./a.out 1000000
  }
 ```
 ------------
+with mutex time check(tscounter.c)
 ![mutex](https://user-images.githubusercontent.com/80217642/121780058-913d7d80-cbd9-11eb-990c-d1d1eac2e068.png)
 ------------
+with semaphore time check(semaphore.c)
 ![semaphore](https://user-images.githubusercontent.com/80217642/121780084-b500c380-cbd9-11eb-9d52-7c25f19e6e59.png)
 
 ------------
 # implement bianry-semaphore with semaphore.h(in POSIX)
 + semaphore can be mutex that named bianry-semaphore that use state only 0,1
  (mutex=binary semaphore)
-+ use <semaphore.h> in POSIX
++ use <semaphore.h> in POSIX (binary-semaphore.c)
 ![Screenshot from 2021-06-12 22-44-49](https://user-images.githubusercontent.com/80217642/121780121-e5486200-cbd9-11eb-90b3-7dc06d164d74.png)
++ it take less time than semaphore compile with semaphore.c i think it's because it use only POSIX header and it spend time only system call nothing to spend bad time than other code.
 ------------
  
 #conclusion
-+ as i mentioned earlier we can choose between mutex and semaphore while synchronize mutiple or one.
++ In many time with OS we have to use multi-programming or multi-processing (even though multi-threading) and at that time we always meet the problem of protecting the process or thread that access to shared resource. and we prevent that error with using lock. and as i mentioned earlier we can choose between semaphore and mutex each synchronize mutiple or one.
 and with thread p1,p2 in two codes(semaphore.c and tscounter.c) we can see a time difference easily.
-in my analysis i think the point is name of mutex, mutual exclusion.
-mutex has a key to unlock and each thread which in critical section give a key next thread after unlock the mutex. one by one access critical section.
-but in semaphore thread get the key 'value' in this code -1 1, and in semaphore using the resource through the value accessing the critical section, the other semaphore waits while changing value.
-so that it take more time than mutex because of time that waiting while changing value.
-we can see a difference between mutex and semaphore code sys time with two picture. it said system(cpu) take more time to wait previous thread's access critical sectio
+in my analysis i think the point is name of mutex, mutual exclusion. that mean other process can't contact when other access shared resource or specific data.
+in detail, mutex has a key to unlock and each thread which in critical section give a key to next thread after unlock the mutex. one by one access critical section.
+but in semaphore thread get the key 'value' in this code -1 1 for lock unlock, and in semaphore using the resource through the value accessing the critical section, the other semaphore waits while changing value.
+so that it take more time than mutex because of waiting for changing value.
+simply speaking while semaphore system waiting for previous thread access but mutex is not.
+And we can also find a difference between mutex and semaphore code sys time with two picture. it said system(cpu) take more time in kernel-mode. in detail, that saids system have to wait previous thread in critical section. that mean while semaphore doing systemcall but they have to wait while value change, so they must waiting in kernel position. otherwise in mutex system, they don't have to wait in kernel-mode so sys time has a difference.
+so in these reason mutex is faster than semaphore.
 ------------
 
 
